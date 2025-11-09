@@ -18,7 +18,7 @@ function Dashboard() {
     setMessage('');
     try {
       const response = await api.post('/drinks/insert', { name, ingredients, instructions, imageUrl });
-      setMessage(Drink "${response.data.name}" inserido com sucesso!);
+      setMessage(`Drink "${response.data.name}" inserido com sucesso!`);
       setName('');
       setIngredients('');
       setInstructions('');

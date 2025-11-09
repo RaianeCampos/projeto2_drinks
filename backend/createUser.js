@@ -1,10 +1,9 @@
-// backend/createUser.js
 const bcrypt = require('bcrypt');
 const db = require('./src/config/database');
 
 async function createTestUser() {
   const email = 'teste@utfpr.edu.br';
-  const password = '123456'; //
+  const password = '123456'; 
   const saltRounds = 10;
 
   try {

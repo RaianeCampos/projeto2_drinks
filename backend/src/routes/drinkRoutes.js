@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { body, query, validationResult } = require('express-validator');
+const { body, query, param, validationResult } = require('express-validator');
 const Drink = require('../models/Drink');
 
 router.get(
@@ -50,6 +50,40 @@ router.post(
       res.status(201).json(newDrink);
     } catch (error) {
       res.status(500).json({ message: 'Erro ao inserir drink' });
+    }
+  }
+);
+
+
+router.get(
+  '/:id',
+  [
+    param('id', 'ID inválido').isInt(),
+  ],
+  async (req, res) => {
+    
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const { id } = req.params;
+      const drink = await Drink.findById(id);
+
+      if (!drink) {
+       
+        console.warn(`Tentativa de acesso a drink inexistente. ID: ${id}`);
+        return res.status(404).json({ message: 'Drink não encontrado' });
+      }
+      
+      
+      console.log(`Detalhes do drink ID ${id} acessado pelo usuário ID ${req.user.userId}`);
+      res.json(drink);
+
+    } catch (error) {
+      console.error('Erro ao buscar detalhes do drink:', error);
+      res.status(500).json({ message: 'Erro ao buscar detalhes do drink' });
     }
   }
 );

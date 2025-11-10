@@ -32,6 +32,19 @@ class Drink {
       throw error;
     }
   }
+
+  static async findById(id) {
+    try {
+      const { rows } = await db.query(
+        'SELECT * FROM drinks WHERE id = $1',
+        [id]
+      );
+      return rows[0]; 
+    } catch (error) {
+      console.error('Erro ao buscar drink por ID:', error);
+      throw error;
+    }
+  }
 }
 
 module.exports = Drink;

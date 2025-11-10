@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import api from '../services/api';
+import './Dashboard.css';
+import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
+  const navigate = useNavigate(); 
 
+ 
   const [name, setName] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
@@ -13,12 +17,20 @@ function Dashboard() {
   const [searchResults, setSearchResults] = useState([]);
   const [message, setMessage] = useState('');
 
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); 
+    navigate('/login'); 
+  };
+
+  
   const handleInsert = async (e) => {
     e.preventDefault();
     setMessage('');
     try {
       const response = await api.post('/drinks/insert', { name, ingredients, instructions, imageUrl });
       setMessage(`Drink "${response.data.name}" inserido com sucesso!`);
+     
       setName('');
       setIngredients('');
       setInstructions('');
@@ -29,12 +41,11 @@ function Dashboard() {
     }
   };
 
-
+  
   const handleSearch = async (e) => {
     e.preventDefault();
     setMessage('');
     try {
-    
       const response = await api.get('/drinks/search', { params: { name: searchTerm } });
       setSearchResults(response.data);
       if (response.data.length === 0) {
@@ -47,47 +58,79 @@ function Dashboard() {
   };
 
   return (
-    <div>
-      <h1>Painel de Drinks</h1>
-      {message && <p>{message}</p>}
+    <div className="dashboard-container">
+      
+      
+      <button onClick={handleLogout} className="btn-logout">
+        Sair
+      </button>
 
-      <hr />
+     
+      <h1 className="dashboard-header">Painel de Drinks</h1>
+      {message && <p className="message">{message}</p>}
 
-      {/* Formulário de Inserção */}
-      <h2>Inserir Novo Drink</h2>
-      <form onSubmit={handleInsert}>
-        <div><label>Nome:</label> <input type="text" value={name} onChange={e => setName(e.target.value)} required /></div>
-        <div><label>Ingredientes:</label> <textarea value={ingredients} onChange={e => setIngredients(e.target.value)} required /></div>
-        <div><label>Instruções:</label> <textarea value={instructions} onChange={e => setInstructions(e.target.value)} required /></div>
-        <div><label>URL da Imagem:</label> <input type="text" value={imageUrl} onChange={e => setImageUrl(e.target.value)} /></div>
-        <button type="submit">Inserir Drink</button>
-      </form>
+      <div className="dashboard-sections">
 
-      <hr />
+        
+        <div className="section">
+          <h2>Inserir Novo Drink</h2>
+          <form onSubmit={handleInsert}>
+            
+            <div className="form-group">
+              <label htmlFor="name">Nome:</label>
+              <input id="name" type="text" className="form-control" value={name} onChange={e => setName(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="ingredients">Ingredientes:</label>
+              <textarea id="ingredients" className="form-control" value={ingredients} onChange={e => setIngredients(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="instructions">Instruções:</label>
+              <textarea id="instructions" className="form-control" value={instructions} onChange={e => setInstructions(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="imageUrl">URL da Imagem:</label>
+              <input id="imageUrl" type="text" className="form-control" value={imageUrl} onChange={e => setImageUrl(e.target.value)} />
+            </div>
+            <button type="submit" className="btn-submit">Inserir Drink</button>
+          </form>
+        </div>
 
-      {/* Formulário de Busca */}
-      <h2>Buscar Drinks</h2>
-      <form onSubmit={handleSearch}>
-        <input 
-          type="text" 
-          value={searchTerm} 
-          onChange={e => setSearchTerm(e.target.value)} 
-          placeholder="Buscar por nome..."
-          required
-        />
-        <button type="submit">Buscar</button>
-      </form>
+        
+        <div className="section">
+          <h2>Buscar Drinks</h2>
+          <form onSubmit={handleSearch}>
+            
+            <div className="form-group">
+              <label htmlFor="search">Buscar por nome:</label>
+              <input 
+                id="search"
+                type="text" 
+                className="form-control"
+                value={searchTerm} 
+                onChange={e => setSearchTerm(e.target.value)} 
+                placeholder="Ex: Margarita"
+                required
+              />
+            </div>
+            <button type="submit" className="btn-submit">Buscar</button>
+          </form>
 
-      {/* Resultados da Busca */}
-      <div>
-        {searchResults.map(drink => (
-          <div key={drink.id} style={{ border: '1px solid #ccc', margin: '10px', padding: '10px' }}>
-            <h4>{drink.name}</h4>
-            <p><strong>Ingredientes:</strong> {drink.ingredients}</p>
-            {drink.image_url && <img src={drink.image_url} alt={drink.name} width="100" />}
+         
+          <div className="search-results">
+            {searchResults.map(drink => (
+              <div key={drink.id} className="drink-card">
+                {drink.image_url && <img src={drink.image_url} alt={drink.name} />}
+                <div className="drink-info">
+                  <h4>{drink.name}</h4>
+                  <p><strong>Ingredientes:</strong> {drink.ingredients}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
+    
     </div>
   );
 }

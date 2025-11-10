@@ -1,0 +1,145 @@
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #ecdec5; 
+  color: #431a1a;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #8b4513;
+  border-bottom: 2px solid #8b4513;
+  padding-bottom: 1rem;
+}
+
+.dashboard-sections {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap; 
+  gap: 2rem;
+}
+
+
+.section {
+  flex: 1; 
+  min-width: 350px; 
+  background-color: #fdfaf3; 
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+}
+
+.section h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #dcd1b4;
+  padding-bottom: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #bba;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  background-color: #8b4513;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #a0522d;
+}
+
+.message {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+}
+
+.search-results {
+  margin-top: 2rem;
+}
+
+.drink-card {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #dcd1b4;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.drink-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.drink-info h4 {
+  margin: 0 0 0.5rem 0;
+  color: #8b4513;
+}
+
+.drink-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.btn-logout {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  
+  background-color: #a0522d;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-logout:hover {
+  background-color: #8b4513; 
+}

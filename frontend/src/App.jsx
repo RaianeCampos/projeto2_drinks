@@ -3,21 +3,16 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import DrinkDetail from './pages/DrinkDetail';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rota Pública */}
-        <Route path="/login" element={<Login />} />
-        
-        {/* Rota Protegida  */}
-        <Route element={<ProtectedRoute />}>
+     <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        
-        {/* Redirecionamento padrão */}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="/drink/:id" element={<DrinkDetail />} /> 
+        </Route>
       </Routes>
     </BrowserRouter>
   );

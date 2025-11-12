@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { body, query, param, validationResult } = require('express-validator');
 const Drink = require('../models/Drink');
+const cache = require('../config/cache');
 
 router.get(
   '/search',
@@ -61,7 +62,6 @@ router.get(
     param('id', 'ID inválido').isInt(),
   ],
   async (req, res) => {
-    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -69,15 +69,25 @@ router.get(
 
     try {
       const { id } = req.params;
+      const cacheKey = `drink_${id}`; 
+
+      const cachedDrink = cache.get(cacheKey);
+      if (cachedDrink) {
+        console.log(`Cache HIT: Buscando drink ID ${id} do cache`);
+       
+        return res.json(cachedDrink);
+      }
+    
+      console.log(`Cache MISS: Buscando drink ID ${id} do banco`);
       const drink = await Drink.findById(id);
 
       if (!drink) {
-       
         console.warn(`Tentativa de acesso a drink inexistente. ID: ${id}`);
         return res.status(404).json({ message: 'Drink não encontrado' });
       }
       
-      
+      cache.set(cacheKey, drink);
+
       console.log(`Detalhes do drink ID ${id} acessado pelo usuário ID ${req.user.userId}`);
       res.json(drink);
 
@@ -87,5 +97,4 @@ router.get(
     }
   }
 );
-
 module.exports = router;

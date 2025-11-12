@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const compression = require('compression');
 const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
 
 
 const authRoutes = require('./src/routes/authRoutes');
@@ -19,6 +20,14 @@ app.use(helmet());
 app.use(compression()); 
 app.use(express.json()); 
 app.use(morgan('dev'));
+
+const loginLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000, 
+	max: 10, 
+	message: { message: 'Muitas tentativas de login a partir deste IP. Tente novamente após 15 minutos.' },
+	standardHeaders: true, 
+	legacyHeaders: false, 
+});
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -38,7 +47,7 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', loginLimiter, authRoutes);
 
 app.use('/api/drinks', verifyToken, drinkRoutes);
 

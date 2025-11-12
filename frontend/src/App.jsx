@@ -7,12 +7,16 @@ import DrinkDetail from './pages/DrinkDetail';
 
 function App() {
   return (
-    <BrowserRouter>
+   <BrowserRouter>
       <Routes>
-     <Route element={<ProtectedRoute />}>
+        <Route path="/login" element={<Login />} />
+        
+        <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/drink/:id" element={<DrinkDetail />} /> 
-        </Route>
+        </Route>
+        
+        <Route path="*" element={<Navigate to="/dashboard" />} />
       </Routes>
     </BrowserRouter>
   );

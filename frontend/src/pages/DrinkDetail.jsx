@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../services/api';
-import './DrinkDetail.css'; 
+import './DrinkDetail.css';
 
 function DrinkDetail() {
   const [drink, setDrink] = useState(null);
@@ -15,7 +15,7 @@ function DrinkDetail() {
       try {
         setLoading(true);
         setError('');
-        const response = await api.get(/drinks/${id});
+        const response = await api.get(`/drinks/${id}`);
         setDrink(response.data);
       } catch (err) {
         console.error('Erro ao buscar drink:', err);
@@ -44,7 +44,7 @@ function DrinkDetail() {
     <div className="detail-container">
       <div className="detail-box">
         
-        {/* Botão para voltar */}
+       
         <Link to="/dashboard" className="btn-back">
           &larr; Voltar ao Painel
         </Link>
@@ -57,7 +57,7 @@ function DrinkDetail() {
 
         <div className="detail-section">
           <h2>Ingredientes</h2>
-          {/* A tag <p> com white-space: pre-wrap preserva quebras de linha */}
+          
           <p>{drink.ingredients}</p>
         </div>
 

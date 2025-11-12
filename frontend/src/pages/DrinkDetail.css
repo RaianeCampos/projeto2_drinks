@@ -1,6 +1,6 @@
 .detail-container {
   max-width: 900px;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 2rem 3rem;
   background-color: #ecdec5; 
   color: #431a1a;
@@ -64,4 +64,19 @@
   font-weight: 600;
   text-align: center;
   font-size: 1.2rem;
+}
+
+.drink-card-link {
+  text-decoration: none; 
+  color: inherit; 
+}
+
+
+.drink-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.drink-card-link:hover .drink-card {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }

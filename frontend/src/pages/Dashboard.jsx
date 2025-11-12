@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../services/api';
 import './Dashboard.css';
-import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const navigate = useNavigate(); 
@@ -119,13 +119,15 @@ function Dashboard() {
          
           <div className="search-results">
             {searchResults.map(drink => (
-              <div key={drink.id} className="drink-card">
-                {drink.image_url && <img src={drink.image_url} alt={drink.name} />}
-                <div className="drink-info">
-                  <h4>{drink.name}</h4>
-                  <p><strong>Ingredientes:</strong> {drink.ingredients}</p>
+              <Link to={`/drink/${drink.id}`} key={drink.id} className="drink-card-link">
+                <div className="drink-card">
+                  {drink.image_url && <img src={drink.image_url} alt={drink.name} />}
+                  <div className="drink-info">
+                    <h4>{drink.name}</h4>
+                    <p><strong>Ingredientes:</strong> {drink.ingredients}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

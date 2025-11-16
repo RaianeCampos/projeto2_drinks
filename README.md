@@ -81,7 +81,11 @@ node createUser.js
 node index.js
 # O servidor estará rodando em http://localhost:3001
 
+```bash
+
 ### 2. Frontend
+
+```bash
 
 # 1. Em outro terminal, navegue para a pasta do frontend
 cd frontend
@@ -92,3 +96,5 @@ npm install
 # 3. Inicie o servidor de desenvolvimento
 npm run dev
 # O app estará disponível em http://localhost:5173
+
+```bash

@@ -81,7 +81,7 @@ node createUser.js
 node index.js
 # O servidor estará rodando em http://localhost:3001
 
-```bash
+```
 
 ### 2. Frontend
 
@@ -97,4 +97,5 @@ npm install
 npm run dev
 # O app estará disponível em http://localhost:5173
 
-```bash
+```
+

@@ -45,7 +45,7 @@ function Login() {
             <input
               id="email"
               type="email"
-              className="form-control" // <-- 3. APLIQUE AS CLASSES
+              className="form-control" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -57,7 +57,7 @@ function Login() {
             <input
               id="password"
               type="password"
-              className="form-control" // <-- 3. APLIQUE AS CLASSES
+              className="form-control" 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required

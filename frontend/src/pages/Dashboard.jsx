@@ -28,8 +28,13 @@ function Dashboard() {
     e.preventDefault();
     setMessage('');
     try {
-      const response = await api.post('/drinks/insert', { name, ingredients, instructions, imageUrl });
-      setMessage(`Drink "${response.data.name}" inserido com sucesso!`);
+      const response = await api.post('/drinks', { 
+        nome: name, 
+        ingredientes: ingredients, 
+        receita: instructions,
+        imagem: imageUrl
+      });
+      setMessage(`Drink "${name}" inserido com sucesso!`);
      
       setName('');
       setIngredients('');
@@ -46,7 +51,7 @@ function Dashboard() {
     e.preventDefault();
     setMessage('');
     try {
-      const response = await api.get('/drinks/search', { params: { name: searchTerm } });
+      const response = await api.get('/drinks', { params: { termo: searchTerm } });
       setSearchResults(response.data);
       if (response.data.length === 0) {
         setMessage('Nenhum resultado encontrado.');
